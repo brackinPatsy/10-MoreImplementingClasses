@@ -177,7 +177,7 @@ class Point(object):
 class Line(object):
     """ Represents a line segment in 2-dimensional space. """
 
-    def __init__(self, start, end):
+    def __init__(self, s, e):
         """
         What comes in:
           -- self
@@ -217,7 +217,7 @@ class Line(object):
           :type end:   Point
         """
         # ---------------------------------------------------------------------
-        # TODO: 3.
+        # done: 3.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -225,8 +225,10 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
-        self.start =start.clone()
-        self.end = end.clone()
+        self.start =s.clone()#s is the start point sent in to line
+        self.end = e.clone()#e is the end point sent in to line
+        self.copy = 0
+
     def __repr__(self):
         """
         What comes in:
@@ -327,7 +329,7 @@ class Line(object):
           :rtype: Line
         """
         # ---------------------------------------------------------------------
-        # TODO: 4.
+        # done: 4.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -335,6 +337,11 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        new_start = self.start
+        new_end = self.end
+        new_line = Line(new_start, new_end)
+        self.copy = self.copy + 1
+        return new_line
 
     def reverse(self):
         """
@@ -361,7 +368,7 @@ class Line(object):
             print(line1 == line2)    # Should now print: True
         """
         # ---------------------------------------------------------------------
-        # TODO: 5.
+        # done: 5.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -369,6 +376,9 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        keep_start = self.start
+        self.start = self.end
+        self.end = keep_start
 
     def slope(self):
         """
@@ -397,7 +407,7 @@ class Line(object):
           :rtype: float
         """
         # ---------------------------------------------------------------------
-        # TODO: 6.
+        # done: 6.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -405,6 +415,11 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        import math
+        if (self.end.x -self.start.x == 0):
+            return math.inf
+        slope = (self.end.y - self.start.y)/(self.end.x - self.start.x)
+        return slope
 
     def length(self):
         """
@@ -430,7 +445,7 @@ class Line(object):
           :rtype: float
         """
         # ---------------------------------------------------------------------
-        # TODO: 7.
+        # done: 7.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -438,6 +453,11 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        import math
+        dx = (self.end.x - self.start.x)**2
+        dy = (self.end.y - self.start.y)**2
+        distance = math.sqrt(dx + dy)
+        return distance
 
     def get_number_of_clones(self):
         """
@@ -470,7 +490,7 @@ class Line(object):
           :rtype: int:
         """
         # ---------------------------------------------------------------------
-        # TODO: 8.
+        # done: 8.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -478,6 +498,7 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        return self.copy
 
     def line_plus(self, other_line):
         """
